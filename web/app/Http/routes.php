@@ -12,8 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+// Route::get('api/account/balance', 'AccountController@balance');
+// Route::get('api/account/position', 'AccountController@position');
+// Route::get('api/account/entrust', 'AccountController@entrust');
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +29,13 @@ Route::get('/', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
+Route::group(['prefix' => 'api'], function () {
+	Route::group(['prefix' => 'account'], function () {
+		Route::get('balance', 'AccountController@balance');
+		Route::get('position', 'AccountController@position');
+		Route::get('entrust', 'AccountController@entrust');
+	});
+});
 
 Route::group(['middleware' => ['web']], function () {
     //
